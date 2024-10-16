@@ -4,7 +4,9 @@
   "description": "A sample Stripe implementation",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "start": "vercel start"
   },
   "author": "stripe-samples",
   "license": "ISC",
