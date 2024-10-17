@@ -1,26 +1,30 @@
-const stripe = require('stripe')(process.env.STRIPE_KEY);
-
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: 'price_1Q6XIVDkcf3EClPZnQeAqOAb',
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${req.headers.origin}/success.html`,
-      cancel_url: `${req.headers.origin}/cancel.html`,
-    });
+  require('dotenv').config();
+  const stripe = require("stripe")(process.env.STRIPE_KEY)
+  if (req.method === "POST") {
+    try {
+      const session = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            price: "price_1Q9Rx3Dkcf3EClPZtJn9FoLO",
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url: `${req.headers.origin}/success.html`,
+        cancel_url: `${req.headers.origin}/cancel.html`,
+      })
 
-    res.status(200).json({ id: session.id });
+      // Return the Stripe checkout URL
+      res.status(201).json({ url: session.url })
+    } catch (err) {
+      console.error(err)
+    }
   } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.setHeader("Allow", ["POST"])
+    res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 }
-
 
 // const express = require('express');
 // require('dotenv').config();

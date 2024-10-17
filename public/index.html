@@ -2,47 +2,48 @@
 <html>
   <head>
     <title>Buy cool new product FOR TEST</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
     <section>
       <div class="product">
-        <img src="https://i.imgur.com/qyr8cgR.jpeg" alt="The super duper cool server" />
+        <img
+          src="https://i.imgur.com/qyr8cgR.jpeg"
+          alt="The super duper cool server"
+        />
         <div class="description">
           <h3>Really cool server, but better</h3>
           <h5>$20.00</h5>
         </div>
       </div>
       <form id="checkout-form">
-        <button type="submit" id="checkout-button">Checkout</button>
+        <button type="submit" id="checkout-button">Checkout Test</button>
       </form>
     </section>
   </body>
 </html>
 
 <script>
-  const form = document.getElementById('checkout-form');
+  const form = document.getElementById("checkout-form")
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent the default form submission
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault() // Prevent the default form submission
 
     try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
+      const response = await fetch("/api/server", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({}), // Include any necessary data here
-      });
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
       // Redirect to Stripe Checkout
-      window.location.href = data.url; // Use the URL returned from the server
+      window.location.href = data.url // Use the URL returned from the server
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error)
     }
-  });
-
-  </script>
+  })
+</script>
